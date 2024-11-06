@@ -86,7 +86,7 @@ function crearPokemonCards(pokemon) {
         for (let i = 0; i < pokemon['tipos'].length; i++) {
             const tipo = document.createElement('div');
             tipo.classList.add('tipo');
-            switch (pokemon['tipos'][i]) {
+            switch (pokemon['tipos'][i]){
                 case 'Planta':
                     tipo.style.backgroundColor = 'rgb(8, 181, 8)';
                     break;
@@ -102,8 +102,44 @@ function crearPokemonCards(pokemon) {
                 case 'Volador':
                     tipo.style.backgroundColor = 'rgb(147, 215, 214, 0.884)';
                     break;
+                case 'Bicho':
+                    tipo.style.backgroundColor = 'rgb(12, 91, 12)';
+                    break;
+                case 'Normal':
+                    tipo.style.backgroundColor = 'rgb(135, 126, 126)';
+                    break;  
+                case 'Eléctrico':
+                    tipo.style.backgroundColor = 'rgb(214, 217, 59)';
+                    break;
+                case 'Tierra':
+                    tipo.style.backgroundColor = 'rgb(157, 114, 62)';
+                    break; 
+                case 'Hada':
+                    tipo.style.backgroundColor = 'rgb(244, 23, 244)';
+                    break;
+                case 'Lucha':
+                    tipo.style.backgroundColor = 'rgb(244, 170, 23)';
+                    break;
+                case 'Psíquico':
+                    tipo.style.backgroundColor = 'rgb(173, 7, 173)';
+                    break; 
+                case 'Roca':
+                    tipo.style.backgroundColor = 'rgb(91, 84, 70)';
+                    break;
+                case 'Acero':
+                    tipo.style.backgroundColor = 'rgb(197, 196, 192)';
+                    break; 
+                case 'Hielo':
+                    tipo.style.backgroundColor = 'rgb(74, 185, 185)';
+                    break; 
+                case 'Fantasma':
+                    tipo.style.backgroundColor = 'rgb(138, 171, 212, 0.598)';
+                    break;
+                case 'Dragón':
+                    tipo.style.backgroundColor = 'rgb(12, 2, 112)';
+                    break; 
                 default:
-                    tipo.style.backgroundColor = 'grey';
+                    tipo.style.backgroundColor = 'grey'; 
                     break;
             }
             tipo.textContent = pokemon['tipos'][i];
