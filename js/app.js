@@ -39,7 +39,7 @@ function crearIndex(){
 
     const container = document.createElement('div');
     container.classList.add('container');
-
+    container.innerHTML = '';
     main.appendChild(container);
     mostrarPokemon();
 
