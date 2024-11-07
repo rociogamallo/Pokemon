@@ -3,53 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Pokémon</title>
+    <title>Práctica 03. DOM</title>
     <style>
-        body {
-            min-height: 100vh;
-            background-color: rgb(220, 250, 173);
-        }
         header {
-            padding-block: 1rem;
-            box-shadow: 0 0 2rem -1rem rgba(0, 0, 0, .5);
-        }
-        header img {
-            margin-left: 12%;
-
-        }
-        .buscador {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding-inline: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
+            justify-content: space-between;
+            align-items: center;
+            width: 96%;
+            padding: 20px;
+            background-color: #EA4553;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
 
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 10px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        input[type="text"] {
-            padding: 8px;
-            font-size: 16px;
+        .container-body {
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 0px;
+            max-width: 1000px;
+            margin: 25px auto;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .pokedex-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #f3bfbf; 
+            color: black;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .form-container {
             width: 100%;
-            max-width: 400px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        .form-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-info label {
+            flex: 1;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .form-info input[type="text"], .form-info select, .form-info input[type="file"] {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #EA4553;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #ca3b3b;
+        }
+
     </style>
 </head>
-<body>
-    <header>
-        <img src="./img/logo.png" alt="Logo de la Pokédex" />
-        <div class="buscador">
-            <form action="#" method="GET">
-                <input type="text" id="pokemon-id" placeholder="Introduce el ID" />
+<body class="container-body">
+    <header> 
+        <div class="pokedex-logo">
+            <img src="../DWEC/Pokemon/Pokemon/img/logo.png" alt="Logo de la Pokédex" style="width: 130px; height: auto;">
+        </div>
+        
+        <a href="#" class="back-button">Volver al Inicio</a>
+    </header>
+    
+    <main class="container">
+        <div class="form-container">
+            <h1>Agregar Pokémon</h1>
+            <form id="agregar-form" action="" method="POST" enctype="multipart/form-data">
+                <div class="form-info">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre" required>
+                </div>
+
+                <div class="form-info">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="Normal">Normal</option>
+                        <option value="Fuego">Fuego</option>
+                        <option value="Agua">Agua</option>
+                        <option value="Planta">Planta</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                        <option value="Hielo">Hielo</option>
+                        <option value="Lucha">Lucha</option>
+                        <option value="Veneno">Veneno</option>
+                        <option value="Tierra">Tierra</option>
+                        <option value="Volador">Volador</option>
+                        <option value="Psíquico">Psíquico</option>
+                        <option value="Bicho">Bicho</option>
+                        <option value="Roca">Roca</option>
+                        <option value="Fantasma">Fantasma</option>
+                        <option value="Dragón">Dragón</option>
+                    </select>
+                </div>
+
+                <div class="form-info">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="Dragón">Ninguno</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Fuego">Fuego</option>
+                        <option value="Agua">Agua</option>
+                        <option value="Planta">Planta</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                        <option value="Hielo">Hielo</option>
+                        <option value="Lucha">Lucha</option>
+                        <option value="Veneno">Veneno</option>
+                        <option value="Tierra">Tierra</option>
+                        <option value="Volador">Volador</option>
+                        <option value="Psíquico">Psíquico</option>
+                        <option value="Bicho">Bicho</option>
+                        <option value="Roca">Roca</option>
+                        <option value="Fantasma">Fantasma</option>
+                        <option value="Dragón">Dragón</option>
+                    </select>
+                </div>
+
+                <div class="form-info">
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" id="imagen" name="imagen" accept="image/*">
+                </div>
+
+                <button type="submit">Agregar</button>
             </form>
         </div>
-    </header>
-    <nav></nav>
-    <main>
-        
     </main>
-    <aside></aside>
-    <footer></footer>
+
+    <script src="js/pokemon.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
