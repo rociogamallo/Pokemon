@@ -35,6 +35,37 @@ function mostrarPokemon() {
     }
 }
 
+// Función para filtrar Pokémon por nombre
+function buscarPokemon() {
+    const inputBuscador = document.getElementById('buscador');
+    
+    inputBuscador.addEventListener('keyup', () => {
+        const termino = inputBuscador.value.toLowerCase();
+        const tarjetasPokemon = Array.from(document.querySelectorAll('.card'));
+
+        // Filtrar tarjetas que coinciden con el término de búsqueda
+        const tarjetasCoincidentes = tarjetasPokemon.filter(tarjeta => {
+            const nombrePokemon = tarjeta.querySelector('.pokemon-nombre').textContent.toLowerCase();
+            return nombrePokemon.includes(termino);
+        });
+
+        // Mostrar/ocultar tarjetas usando un bucle `for`
+        for (let i = 0; i < tarjetasPokemon.length; i++) {
+            if (tarjetasCoincidentes.includes(tarjetasPokemon[i])) {
+                tarjetasPokemon[i].style.display = ''; // Mostrar si está en el array filtrado
+            } else {
+                tarjetasPokemon[i].style.display = 'none'; // Ocultar si no está en el array filtrado
+            }
+        }
+    });
+}
+
+// Llamar a la función de búsqueda al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    buscarPokemon();
+});
+
+
 /**
  * Función para crear el índice y el contenedor de Pokémon
  */
