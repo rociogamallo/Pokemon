@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Práctica 03. DOM</title>
     <style>
-        .header {
+
+        header {
             display: flex;
-            width: 100%; 
-            background-color: #333;
-            color: white;
-            text-align: center;
-            font-size: 2rem;
+            justify-content: space-between;
+            align-items: center;
+            width: 96%;
+            padding: 20px;
+            background-color: #EA4553;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header input {
+            padding: 15px; /* Aumentamos el padding para hacer más grande el input */
+            border-radius: 25px; /* Borde más redondeado */
+            border: 2px solid #56060d; /* Bordes con un color más oscuro para que resalten */
+            font-size: 15px; /* Aumentamos el tamaño de la fuente */
+            width: 150px; /* Aumentamos el tamaño del input */
+            transition: all 0.3s ease; /* Añadimos una transición suave cuando interactúas con el input */
         }
 
         .container {
@@ -37,14 +49,13 @@
         }
 
         .card {
-            background-color: #c4c4c4;
-            border: 1px solid #5b5b5b;
-            border-radius: 10px;
-            width: 180px; /* Ancho fijo */
-            height: auto; /* Altura automática */
+            background-color: #F9ACBD;
+            border: 1px solid #56060d;
+            border-radius: 0 0 10px 10px;
+            width: 180px;
             text-align: center;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Evitar que el contenido desborde */
+            box-shadow: 0px 4px 8px #56060d;
+            transition: transform 0.2s; 
         }
 
         .card:hover {
@@ -58,10 +69,9 @@
         }
 
         .card img {
-            width: 100%; /* Ancho completo del contenedor */
-            height: auto; /* Mantener proporciones */
-            max-height: 80px; /* Altura máxima para evitar pixelación */
-            object-fit: contain; /* Mantener la imagen completa sin deformarla */
+            width: 50%;
+            height: auto;
+            margin-top: 10px;
         }
 
         .card p {
@@ -69,26 +79,31 @@
             color: #333;
         }
 
-        .pokedex-superior {
+        .pokedex-numero {
             display: flex;
             justify-content: space-between; 
-            background-color: #656565; 
-            color: #e2e2e2; 
+            background-color: #EA4553; 
+            color: #333; 
             padding: 10px;
             border-radius: 0 0 100% 100%; 
             font-weight: bold;
             font-size: 16px;
-            border-bottom: 2px solid #393939; 
+            border-bottom: 2px solid #56060d; 
             width: 100%; 
             box-sizing: border-box; 
             text-align: center; 
-            margin-bottom: 10px;
         }
 
         .pokedex-id {
-            text-align: left;
-            font-size: 12px;
+            background-color: #EA4553; 
+            color: black;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
         }
+
 
         .pokemon-nombre {
             text-align: right;
@@ -98,16 +113,15 @@
         .pokedex-tipo {
             display: flex;
             justify-content: space-around; 
-            background-color: #656565; 
-            color: #e2e2e2; 
+            background-color: #EA4553; 
+            color: #333; 
             padding: 10px;
             font-weight: bold;
             font-size: 16px;
-            border-bottom: 2px solid #393939; 
+            border-bottom: 2px solid #56060d; 
             width: 100%; 
             box-sizing: border-box; 
             border-radius: 0 0 10px 10px;
-            margin-top: 10px;
         }
 
         .tipo {
@@ -116,63 +130,121 @@
             border-radius: 5px; 
             color: white; 
             font-size: 14px; 
+            background-color: grey;
         }
-        header{
-            background-color: #656565;
-            border-radius: 0 0 10px 10px;
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
+        
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            width: 40px; /* Adjust size as needed */
-            height: auto;
-        }
-
-        .title {
-            font-size: 20px; /* Adjust font size as needed */
-            font-weight: bold;
-            color: #fff; /* Change color to suit design */
-            text-align: center;
-            flex-grow: 1; /* Pushes the text to the center */
-        }
-
-        .search-bar {
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            background-color: #f1f1f1;
-            max-width: 300px; /* Set max width if desired */
-        }
     </style>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="Logo" class="logo">
-            </div>
-            <div class="title">
-                Pokedex
-            </div>
-            <input type="text" id="buscador" class="search-bar" placeholder="Buscar Pokémon...">
+<body class="container-body">
+    <header> 
+        <span class="pokedex-id"><img src="./Pokemon/img/logo.png" alt="Logo de la Pokédex" /></span>
+        
+        <div class="pokemon-nombre">
+            <form action="#" method="GET">
+                <input type="text" id="pokemon-id" placeholder="Introduce el ID" />
+            </form>
         </div>
     </header>
-    <nav></nav>
-    <main></main>
-    <aside></aside>
-    <footer></footer>
+    <div class="container-body">
+        <span class="pokedex-id" style="background-color: #EA4553; color: black;">Formulario</span>
+    </div>
+    <main class="container">
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#1</span>
+                <span class="pokemon-nombre">Bulbasaur</span>
+            </div>
+            <img src="/Pokemon/img/1.png" alt="Bulbasaur">
+            <div class="pokedex-tipo">
+                <div class="tipo" style="background-color: rgb(8, 181, 8);">Planta</div>
+                <div class="tipo" style="background-color: rgb(173, 7, 173);">Veneno</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#2</span>
+                <span class="pokemon-nombre">Ivysaur</span>
+            </div>
+            <img src="/Pokemon/img/2.png" alt="Ivysaur">
+            <div class="pokedex-tipo"><div class="tipo" style="background-color: rgb(8, 181, 8);">Planta</div>
+            <div class="tipo" style="background-color: rgb(173, 7, 173);">Veneno</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#3</span>
+                <span class="pokemon-nombre">Venusaur</span>
+            </div>
+            <img src="/Pokemon/img/3.png" alt="Ivysaur">
+            <div class="pokedex-tipo">
+                <div class="tipo">Planta</div>
+                <div class="tipo">Veneno</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#4</span>
+                <span class="pokemon-nombre">Charmander</span>
+            </div>
+            <img src="/Pokemon/img/4.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo" style="background-color: rgb(118, 15, 15);">Fuego</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#5</span>
+                <span class="pokemon-nombre">Charmeleon</span>
+            </div>
+            <img src="/Pokemon/img/5.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo">Fuego</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#6</span>
+                <span class="pokemon-nombre">Charizard</span>
+            </div>
+            <img src="/Pokemon/img/6.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo" style="background-color: rgb(118, 15, 15);">Fuego</div>
+                <div class="tipo" style="background-color: rgb(147, 215, 214);">Volador</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#7</span>
+                <span class="pokemon-nombre">Squirtle</span>
+            </div>
+            <img src="/Pokemon/img/7.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo" style="background-color: rgb(80, 143, 237);">Agua</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#8</span>
+                <span class="pokemon-nombre">Wartortle</span>
+            </div>
+            <img src="/Pokemon/img/8.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo">Agua</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="pokedex-numero">
+                <span class="pokedex-id">#9</span>
+                <span class="pokemon-nombre">Blastoise</span>
+            </div>
+            <img src="/Pokemon/img/9.png" alt="Charmander">
+            <div class="pokedex-tipo">
+                <div class="tipo">Agua</div>
+            </div>
+        </div>
+        
+    </main>
 
     <script src="js/pokemon.js"></script>
     <script src="js/app.js"></script>
