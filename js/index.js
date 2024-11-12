@@ -1,0 +1,3 @@
+/**
+ * Contenido principal del index
+ */

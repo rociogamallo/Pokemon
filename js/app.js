@@ -3,8 +3,8 @@
  */
 function guardarPokemonEnLocalStorage() {
     // Guardar el objeto inicial de Pokémon en localStorage si no está guardado ya
-    if (!localStorage.getItem('pokemonList')) {
-        localStorage.setItem('pokemonList', JSON.stringify(pokemonList));  // Asegúrate de tener pokemonList definido antes
+    if (!localStorage.getItem('pokemon')) {
+        localStorage.setItem('pokemon', JSON.stringify(pokemon));  // Asegúrate de tener pokemon definido antes
     }
 }
 
@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function mostrarPokemon() {
     // Recupera la lista guardada en localStorage
-    const pokemonList = JSON.parse(localStorage.getItem('pokemonList'));
+    const pokemon = JSON.parse(localStorage.getItem('pokemon'));
 
-    // Verifica si pokemonList existe antes de proceder
-    if (pokemonList) {
-        for (let i = 0; i < pokemonList.length; i++) {
-            crearPokemonCards(pokemonList[i]);
+    // Verifica si pokemon existe antes de proceder
+    if (pokemon) {
+        for (let i = 0; i < pokemon.length; i++) {
+            crearPokemonCards(pokemon[i]);
         }
     }
 }
