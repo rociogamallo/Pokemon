@@ -9,7 +9,7 @@ titulo.textContent = 'Agregar Pokémon';
 formContainer.appendChild(titulo);
 
 /**
- * Creación del ormulario
+ * Creación del formulario
  */
 const form = document.createElement('form');
 form.id = 'agregar-form';
