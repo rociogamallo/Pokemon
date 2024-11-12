@@ -87,7 +87,7 @@ tipoSelect2.id = 'tipo2';
 tipoSelect2.name = 'tipo2';
 
 /**
- * Ahora agregp la opción "Ninguno" y luego las mismas opciones que el tipo1
+ * Ahora agrego la opción "Ninguno" y luego las mismas opciones que el tipo1
  */
 const opcionNone = document.createElement('option');
 opcionNone.value = 'Ninguno';
