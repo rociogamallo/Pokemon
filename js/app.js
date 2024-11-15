@@ -81,7 +81,7 @@ logo.addEventListener("click", () => {
 const botonFormulario = document.querySelector(".button-style");
 
 botonFormulario.addEventListener("click", () => {
-    window.location.href = "../pages/agregar.html";
+    window.location.href = "./pages/agregar.html";
     alert("Formulario aún no implementado.");
 });
 
