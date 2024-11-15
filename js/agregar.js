@@ -13,7 +13,6 @@ formContainer.appendChild(titulo);
  */
 const form = document.createElement('form');
 form.id = 'agregar-form';
-form.action = '';
 form.method = 'POST';
 form.enctype = 'multipart/form-data';
 formContainer.appendChild(form);
