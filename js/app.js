@@ -65,6 +65,25 @@ document.addEventListener('DOMContentLoaded', () => {
     buscarPokemon();
 });
 
+/**
+ * Añadir eventos: Redireccion de paginas
+ * de index a formulario 
+ * de logo a index
+ */
+// Redirige a la página de inicio al hacer clic en el logo
+const logo = document.querySelector(".logo");
+logo.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
+
+//Botón para ir al formulario
+const botonFormulario = document.querySelector(".button-style");
+
+botonFormulario.addEventListener("click", () => {
+    window.location.href = "../pages/agregar.html";
+    alert("Formulario aún no implementado.");
+});
 
 /**
  * Función para crear el índice y el contenedor de Pokémon
