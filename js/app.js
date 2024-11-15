@@ -107,6 +107,7 @@ function crearPokemonCards(pokemon) {
         const img = document.createElement('img');
         img.src = `./img/${pokemon.id}.png`;  // Ajusta la ruta si es necesario
         img.alt = pokemon.nombre;
+        img.classList.add('card-img');
         card.appendChild(img);
 
         // Crea el div de los TIPOS
@@ -176,8 +177,18 @@ function crearPokemonCards(pokemon) {
             tipo.textContent = pokemon['tipos'][i];
             pokedexInferior.appendChild(tipo);
         }
-
         card.appendChild(pokedexInferior);
+
+        const basura = document.createElement('div');
+        basura.classList.add('basura-container');
+        const imgPapelera = document.createElement('img');
+        imgPapelera.src = `./img/papelera.png`;  
+        imgPapelera.alt = 'papelera';
+        imgPapelera.classList.add('basura-img');
+        basura.appendChild(imgPapelera);
+        card.appendChild(basura);
+
+        
         container.appendChild(card);
     }
 }
