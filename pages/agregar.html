@@ -11,7 +11,7 @@
             align-items: center;
             width: 96%;
             padding: 20px;
-            background-color: #EA4553;
+            background-color: #656565;
             border-radius: 0 0 10px 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             margin: auto;
@@ -50,8 +50,8 @@
         }
 
         .back-button {
-            background-color: #f3bfbf; 
-            color: black;
+            background-color: #393939; 
+            color: white;
             padding: 10px 20px;
             border-radius: 10px;
             font-weight: bold;
@@ -76,7 +76,6 @@
         }
 
         .form-info label {
-            flex: 1;
             font-weight: bold;
             text-align: right;
             margin-right: 10px;
@@ -92,7 +91,7 @@
         button {
             display: block;
             width: 100%;
-            background-color: #EA4553;
+            background-color: #656565;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -103,15 +102,20 @@
         }
 
         button:hover {
-            background-color: #ca3b3b;
+            background-color: #393939;
         }
-
+        .centrar {
+            display: flex;                /* Activamos Flexbox */
+            justify-content: center;      /* Centrado horizontal */
+            align-items: center;          /* Centrado vertical */
+        }
+        
     </style>
 </head>
 <body class="container-body">
     <header> 
         <div class="pokedex-logo">
-            <img src="../DWEC/Pokemon/Pokemon/img/logo.png" alt="Logo de la Pokédex" style="width: 130px; height: auto;">
+            <img src="../img/logo.png" alt="Logo de la Pokédex" style="width: 130px; height: auto;">
         </div>
         
         <a href="#" class="back-button">Volver al Inicio</a>
@@ -119,7 +123,7 @@
     
     <main class="container">
     </main>
-    <script src="js/pokemon.js"></script>
-    <script src="js/agregar.js"></script>
+    <script src="../js/pokemon.js"></script>
+    <script src="../js/agregar.js"></script>
 </body>
 </html>
