@@ -36,28 +36,21 @@ function mostrarPokemon() {
 }
 
 // Función para filtrar Pokémon por nombre
-function buscarPokemon() {
-    const inputBuscador = document.getElementById('buscador');
-    
-    inputBuscador.addEventListener('keyup', () => {
-        const termino = inputBuscador.value.toLowerCase();
-        const tarjetasPokemon = Array.from(document.querySelectorAll('.card'));
-
-        // Filtrar tarjetas que coinciden con el término de búsqueda
-        const tarjetasCoincidentes = tarjetasPokemon.filter(tarjeta => {
-            const nombrePokemon = tarjeta.querySelector('.pokemon-nombre').textContent.toLowerCase();
-            return nombrePokemon.includes(termino);
+function buscarPokemon() { 
+    const inputBuscador = document.getElementById('buscador'); 
+    inputBuscador.addEventListener('keyup', () => { 
+        const termino = inputBuscador.value.toLowerCase(); 
+        const tarjetasPokemon = Array.from(document.querySelectorAll('.card-container')); 
+        tarjetasPokemon.forEach(tarjeta => { 
+            const nombrePokemon = tarjeta.querySelector('.pokemon-nombre').textContent.toLowerCase(); 
+            if (nombrePokemon.includes(termino)) { 
+                tarjeta.style.order = 0; // Agrupa los resultados encontrados al principio 
+                tarjeta.style.display = 'flex'; } 
+            else { tarjeta.style.order = 1; // Mueve los resultados no encontrados al final 
+                tarjeta.style.display = 'none'; // Oculta las tarjetas que no coinciden 
+                } 
+            });
         });
-
-        // Mostrar/ocultar tarjetas usando un bucle `for`
-        for (let i = 0; i < tarjetasPokemon.length; i++) {
-            if (tarjetasCoincidentes.includes(tarjetasPokemon[i])) {
-                tarjetasPokemon[i].style.display = ''; // Mostrar si está en el array filtrado
-            } else {
-                tarjetasPokemon[i].style.display = 'none'; // Ocultar si no está en el array filtrado
-            }
-        }
-    });
 }
 
 // Llamar a la función de búsqueda al cargar la página
@@ -111,9 +104,13 @@ function crearPokemonCards(pokemon) {
     
     // Verifica si el contenedor ya tiene un Pokémon con el mismo ID, para evitar duplicados
     if (!container.querySelector(`#pokemon-${pokemon.id}`)) {
+        
+        const cardContainer = document.createElement('div');
+        cardContainer.classList.add('card-container');
+        cardContainer.id = `pokemon-${pokemon.id}`;
+
         const card = document.createElement('div');
         card.classList.add('card');
-        card.id = `pokemon-${pokemon.id}`;  // Asignamos un ID único por Pokémon
 
         // Crea el div de NOMBRE e ID
         const pokedexArriba = document.createElement('div');
@@ -204,6 +201,38 @@ function crearPokemonCards(pokemon) {
         }
         card.appendChild(pokedexInferior);
 
+
+        //Comienzo de la otra card con la información
+        const backCard = document.createElement('div');
+        backCard.classList.add('backcard');
+
+        // Div con la información
+        const info = document.createElement('div');
+
+        // Crear y agregar el elemento para el peso
+        const peso = document.createElement('p');
+        peso.textContent = `-Peso: ${pokemon.peso}`;
+        info.appendChild(peso);
+
+        // Crear y agregar el elemento para la altura
+        const altura = document.createElement('p');
+        altura.textContent = `-Altura: ${pokemon.altura}`;
+        info.appendChild(altura);
+
+        // Crear y agregar el elemento para la amistad base
+        const amistad_base = document.createElement('p');
+        amistad_base.textContent = `-Amistad_base: ${pokemon.amistad_base}`;
+        info.appendChild(amistad_base);
+
+        // Crear y agregar el elemento para el hábitat
+        const habitat = document.createElement('p');
+        habitat.textContent = `-Habitat: ${pokemon.habitat}`;
+        info.appendChild(habitat);
+
+        backCard.appendChild(info);
+
+
+        //Papelera para borrado
         const basura = document.createElement('div');
         basura.classList.add('basura-container');
         const imgPapelera = document.createElement('img');
@@ -211,10 +240,11 @@ function crearPokemonCards(pokemon) {
         imgPapelera.alt = 'papelera';
         imgPapelera.classList.add('basura-img');
         basura.appendChild(imgPapelera);
-        card.appendChild(basura);
+        backCard.appendChild(basura);
 
-        
-        container.appendChild(card);
+        cardContainer.appendChild(card);
+        cardContainer.appendChild(backCard);
+        container.appendChild(cardContainer);
     }
 }
 
