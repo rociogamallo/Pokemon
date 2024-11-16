@@ -205,22 +205,26 @@ function crearPokemonCards(pokemon) {
 
         // Crear y agregar el elemento para el peso
         const peso = document.createElement('p');
-        peso.textContent = `-Peso: ${pokemon.peso}kg`;
+        peso.textContent = pokemon.peso ? `-Peso: ${pokemon.peso}kg` : '-Peso: No disponible';
         info.appendChild(peso);
 
         // Crear y agregar el elemento para la altura
         const altura = document.createElement('p');
-        altura.textContent = `-Altura: ${pokemon.altura}m`;
+        altura.textContent = pokemon.altura ? `-Altura: ${pokemon.altura}m` : '-Altura: No disponible';
         info.appendChild(altura);
 
         // Crear y agregar el elemento para la amistad base
         const habilidades = document.createElement('p');
-        habilidades.textContent = `-Habilidad: ${pokemon.habilidades[0].nombre}`;
+        if (pokemon.habilidades && pokemon.habilidades.length > 0) {
+            habilidades.textContent = `-Habilidad: ${pokemon.habilidades[0].nombre}`;
+        } else {
+            habilidades.textContent = '-Habilidad: No disponible';
+        }
         info.appendChild(habilidades);
 
         // Crear y agregar el elemento para el hábitat
         const habitat = document.createElement('p');
-        habitat.textContent = `-Habitat: ${pokemon.habitat}`;
+        habitat.textContent = pokemon.habitat ? `-Hábitat: ${pokemon.habitat}` : '-Hábitat: No disponible';
         info.appendChild(habitat);
 
         backCard.appendChild(info);
