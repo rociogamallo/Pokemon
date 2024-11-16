@@ -13,11 +13,3 @@ logo.addEventListener("click", () => {
     window.location.href = "index.html";
 });
 
-
-//Botón para ir al formulario
-const botonFormulario = document.querySelector(".button-style");
-
-botonFormulario.addEventListener("click", () => {
-    alert("Formulario aún no implementado.");
-    console.log("Botón 'Formulario' presionado");
-});

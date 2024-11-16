@@ -82,8 +82,14 @@ const botonFormulario = document.querySelector(".button-style");
 
 botonFormulario.addEventListener("click", () => {
     window.location.href = "./pages/agregar.html";
-    alert("Formulario aún no implementado.");
+    alert("Redireccionando al formulario, saldrás de ésta página.");
 });
+
+//Botón para borrar el pokémon.
+const botonBorrar = document.querySelector("");
+
+
+
 
 /**
  * Función para crear el índice y el contenedor de Pokémon
