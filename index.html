@@ -5,15 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Práctica 03. DOM</title>
     <style>
-        .header {
+        /* Header ocupa todo el ancho de la pantalla */
+        header {
             display: flex;
-            width: 100%; 
-            background-color: #333;
-            color: white;
-            text-align: center;
-            font-size: 2rem;
+            justify-content: space-between;
+            align-items: center;
+            width: 96%;
+            padding: 20px;
+            background-color: #656565;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
         }
 
+        /* Contenedor del botón de formulario */
+        .formulario-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Botón de formulario */
+        .button-style {
+            cursor: pointer;
+            display: inline-block;
+            background-color: #656565; 
+            color: white; 
+            padding: 10px 20px; 
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px; 
+            transition: background-color 0.3s, transform 0.2s; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+            margin-top: 0; /* Sin margen adicional arriba */
+        }
+
+        .button-style:hover {
+            background-color: #656565;
+            transform: scale(1.05); 
+        }
+
+        .container-body {
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 0px;
+            max-width: 1000px;
+            margin: 25px auto;
+            background-color: #f0f0f0;
+        }
+
+        /* Contenedor de las tarjetas de Pokémon */
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -21,54 +64,59 @@
             justify-content: center;
             padding: 20px;
             max-width: 1000px;
-            margin: 20px auto;
+            margin: 0 auto 20px auto; /* Ajuste de márgenes */
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .container-body {
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 40px auto;
-            background-color: #f0f0f0;
+
+        /* Card container */
+        .card-container {
+            perspective: 1000px;
+            position: relative;
+            width: 180px;
+            height: 250px;
+        }
+
+        /* Tarjetas de Pokémon */
+        .card, .backcard{
+            background-color: #c4c4c4;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            position: absolute;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column; 
+            justify-content: space-between; 
+        }
+        .backcard p {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+            font-weight: bold;
         }
 
         .card {
-            background-color: #c4c4c4;
-            border: 1px solid #5b5b5b;
-            border-radius: 10px;
-            width: 180px; 
-            height: auto; 
-            text-align: center;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden; 
+            transform: rotateY(0deg);
         }
 
-        .card:hover {
-            transform: scale(1.05); 
+        .backcard {
+            transform: rotateY(180deg);
         }
 
-        .card h2 {
-            font-size: 18px;
-            margin: 10px 0;
-            color: #333;
+        .card-container:hover .card {
+            transform: rotateY(180deg);
         }
 
-        .card-img {
-            width: 100%; 
-            height: auto; 
-            max-height: 80px; 
-            object-fit: contain; 
+        .card-container:hover .backcard {
+            transform: rotateY(360deg);
         }
 
-        .card p {
-            font-size: 14px;
-            color: #333;
-        }
-
+        /* Contenedor superior en la tarjeta (nombre e ID) */
         .pokedex-superior {
             display: flex;
             justify-content: space-between; 
@@ -85,27 +133,18 @@
             margin-bottom: 10px;
         }
 
-        .pokedex-id {
-            text-align: left;
-            font-size: 12px;
-        }
-
-        .pokemon-nombre {
-            text-align: right;
-            font-size: 12px;
-        }
-
+        /* Estilos para los tipos de Pokémon */
         .pokedex-tipo {
             display: flex;
             justify-content: space-around; 
             background-color: #656565; 
             color: #e2e2e2; 
-            padding-top: 10px;
+            padding: 10px 0;
             font-weight: bold;
             font-size: 16px;
             width: 100%; 
-            box-sizing: border-box; 
-            margin-top: 10px;
+            box-sizing: border-box;
+            border-radius: 0 0 10px 10px; /* Bordes redondeados para la parte inferior */
         }
 
         .tipo {
@@ -115,14 +154,24 @@
             color: white; 
             font-size: 14px; 
         }
-        header{
+
+        .card-img {
+                    width: 100%; 
+                    height: auto; 
+                    max-height: 80px; 
+                    object-fit: contain; 
+                }
+
+        header {
             background-color: #656565;
             border-radius: 0 0 10px 10px;
         }
+
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             padding: 10px 20px;
         }
 
@@ -131,20 +180,22 @@
             align-items: center;
         }
 
-        .logo {
-            width: 110px; 
-            height: auto;
-        }
-
         .search-bar {
+            margin-left: auto; /* Asegura que el buscador esté a la derecha */
             padding: 8px 12px;
             border-radius: 20px;
             border: none;
             outline: none;
             font-size: 16px;
             background-color: #f1f1f1;
-            max-width: 300px; 
+            max-width: 300px;
         }
+
+        .logo {
+            width: 110px; 
+            height: auto;
+        }
+
         .button-style {
             cursor: pointer;
             display: inline-block;
@@ -168,19 +219,24 @@
 
         .basura-container {
             display: flex;
-            justify-content: center; 
-            width: 100%; 
-            border-bottom: 2px solid #393939; 
+            justify-content: center;
+            align-items: center;
             background-color: #656565; 
-            box-sizing: border-box; 
-            border-radius: 0 0 10px 10px;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
 
         .basura-img {
-            width: 25px; 
-            height: 25px; 
-            cursor: pointer; 
-            margin-top: 5px; 
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .basura-img:hover {
+            transform: scale(1.2);
         }
 
     </style>
