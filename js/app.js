@@ -238,6 +238,7 @@ function crearPokemonCards(pokemon) {
         const imgPapelera = document.createElement('img');
         imgPapelera.src = `./img/papelera.png`;  
         imgPapelera.alt = 'papelera';
+        imgPapelera.id = `${pokemon.id}`;
         imgPapelera.classList.add('basura-img');
         basura.appendChild(imgPapelera);
         backCard.appendChild(basura);
