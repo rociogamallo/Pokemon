@@ -1,168 +1,214 @@
+/**
+ * Función para guardar un Pokémon en localStorage
+ */
+function guardarPokemonEnLocalStorage() {
+    // Guardar el objeto inicial de Pokémon en localStorage si no está guardado ya
+    if (!localStorage.getItem('pokemon')) {
+        localStorage.setItem('pokemon', JSON.stringify(pokemon));  // Asegúrate de tener pokemon definido antes
+    }
+}
+
+// Llamar a la función para guardar los Pokémon
+guardarPokemonEnLocalStorage();
+
+/**
+ * Función para mostrar los Pokémon en HTML 
+ * Lee los datos del localStorage y genera un HTML
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Verificar si los Pokémon ya están en el localStorage antes de mostrarlos
+    if (!document.querySelector('.container')) {
+        crearIndex();
+    }
+    mostrarPokemon();
+});
+
+function mostrarPokemon() {
+    // Recupera la lista guardada en localStorage
+    const pokemon = JSON.parse(localStorage.getItem('pokemon'));
+
+    // Verifica si pokemon existe antes de proceder
+    if (pokemon) {
+        for (let i = 0; i < pokemon.length; i++) {
+            crearPokemonCards(pokemon[i]);
+        }
+    }
+}
+
+// Función para filtrar Pokémon por nombre
+function buscarPokemon() {
+    const inputBuscador = document.getElementById('buscador');
+    
+    inputBuscador.addEventListener('keyup', () => {
+        const termino = inputBuscador.value.toLowerCase();
+        const tarjetasPokemon = Array.from(document.querySelectorAll('.card'));
+
+        // Filtrar tarjetas que coinciden con el término de búsqueda
+        const tarjetasCoincidentes = tarjetasPokemon.filter(tarjeta => {
+            const nombrePokemon = tarjeta.querySelector('.pokemon-nombre').textContent.toLowerCase();
+            return nombrePokemon.includes(termino);
+        });
+
+        // Mostrar/ocultar tarjetas usando un bucle `for`
+        for (let i = 0; i < tarjetasPokemon.length; i++) {
+            if (tarjetasCoincidentes.includes(tarjetasPokemon[i])) {
+                tarjetasPokemon[i].style.display = ''; // Mostrar si está en el array filtrado
+            } else {
+                tarjetasPokemon[i].style.display = 'none'; // Ocultar si no está en el array filtrado
+            }
+        }
+    });
+}
+
+// Llamar a la función de búsqueda al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    buscarPokemon();
+});
+
+/**
+ * Añadir eventos: Redireccion de paginas
+ * de index a formulario 
+ * de logo a index
+ */
 // Redirige a la página de inicio al hacer clic en el logo
-const logo = document.querySelector(".pokedex-logo");
+const logo = document.querySelector(".logo");
 logo.addEventListener("click", () => {
-    window.location.href = `../index.html`;
+    window.location.href = "index.html";
 });
 
-// Redirige a la página de inicio al hacer clic en el div
-const botonFormulario = document.querySelector(".back-button");
+
+//Botón para ir al formulario
+const botonFormulario = document.querySelector(".button-style");
+
 botonFormulario.addEventListener("click", () => {
-    window.location.href = `../index.html`;
+    window.location.href = "./pages/agregar.html";
 });
 
+/**
+ * Función para crear el índice y el contenedor de Pokémon
+ */
+function crearIndex() {
+    document.body.classList.add('container-body');
+    const main = document.querySelector('main');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const container = document.querySelector('main');
-    console.log(container);
+    const container = document.createElement('div');
+    container.classList.add('container');
+    main.appendChild(container);
+}
 
-    // Crear contenedor del formulario
-    const formContainer = document.createElement('div');
-    formContainer.classList.add('form-container');
+/**
+ * Función para crear las tarjetas de Pokémon
+ */
+function crearPokemonCards(pokemon) {
+    const container = document.querySelector('.container');
+    
+    // Verifica si el contenedor ya tiene un Pokémon con el mismo ID, para evitar duplicados
+    if (!container.querySelector(`#pokemon-${pokemon.id}`)) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.id = `pokemon-${pokemon.id}`;  // Asignamos un ID único por Pokémon
 
-    // Titulo del formulario
-    const titulo = document.createElement('h1');
-    titulo.textContent = 'Agregar Pokémon';
-    formContainer.appendChild(titulo);
+        // Crea el div de NOMBRE e ID
+        const pokedexArriba = document.createElement('div');
+        pokedexArriba.classList.add('pokedex-superior');
+        const pokedexId = document.createElement('span');
+        pokedexId.classList.add('pokedex-id');
+        pokedexId.textContent = `#${pokemon.id}`;
+        const pokemonNombre = document.createElement('span');
+        pokemonNombre.classList.add('pokemon-nombre');
+        pokemonNombre.textContent = pokemon.nombre;
+        pokedexArriba.appendChild(pokedexId);
+        pokedexArriba.appendChild(pokemonNombre);
+        card.appendChild(pokedexArriba);
 
-    // Crear formulario
-    const containerForm = document.createElement('div');
-    containerForm.classList.add('centrar');
-    const form = document.createElement('form');
-    form.id = 'agregar-form';
-    form.method = 'POST';
-    form.enctype = 'multipart/form-data';
-    form.classList.add('centrar-formulario');
-    containerForm.appendChild(form);
-    formContainer.appendChild(containerForm);
+        // Crea la imagen
+        const img = document.createElement('img');
+        img.src = `./img/${pokemon.id}.png`;  // Ajusta la ruta si es necesario
+        img.alt = pokemon.nombre;
+        img.classList.add('card-img');
+        card.appendChild(img);
 
-    // Campo Nombre
-    const Div1 = document.createElement('div');
-    Div1.classList.add('form-info');
+        // Crea el div de los TIPOS
+        const pokedexInferior = document.createElement('div');
+        pokedexInferior.classList.add('pokedex-tipo');
 
-    const Label1 = document.createElement('label');
-    Label1.setAttribute('for', 'nombre');
-    Label1.textContent = 'Nombre:';
-    Div1.appendChild(Label1);
+        // Bucle para crear los tipos del Pokémon
+        for (let i = 0; i < pokemon['tipos'].length; i++) {
+            const tipo = document.createElement('div');
+            tipo.classList.add('tipo');
+            switch (pokemon['tipos'][i]){
+                case 'Planta':
+                    tipo.style.backgroundColor = 'rgb(8, 181, 8)';
+                    break;
+                case 'Veneno':
+                    tipo.style.backgroundColor = 'rgb(121, 19, 121)';
+                    break;
+                case 'Fuego':
+                    tipo.style.backgroundColor = 'rgb(118, 15, 15)';
+                    break;
+                case 'Agua':
+                    tipo.style.backgroundColor = 'rgb(80, 143, 237)';
+                    break;
+                case 'Volador':
+                    tipo.style.backgroundColor = 'rgb(147, 215, 214, 0.884)';
+                    break;
+                case 'Bicho':
+                    tipo.style.backgroundColor = 'rgb(12, 91, 12)';
+                    break;
+                case 'Normal':
+                    tipo.style.backgroundColor = 'rgb(135, 126, 126)';
+                    break;  
+                case 'Eléctrico':
+                    tipo.style.backgroundColor = 'rgb(214, 217, 59)';
+                    break;
+                case 'Tierra':
+                    tipo.style.backgroundColor = 'rgb(157, 114, 62)';
+                    break; 
+                case 'Hada':
+                    tipo.style.backgroundColor = 'rgb(244, 23, 244)';
+                    break;
+                case 'Lucha':
+                    tipo.style.backgroundColor = 'rgb(244, 170, 23)';
+                    break;
+                case 'Psíquico':
+                    tipo.style.backgroundColor = 'rgb(173, 7, 173)';
+                    break; 
+                case 'Roca':
+                    tipo.style.backgroundColor = 'rgb(91, 84, 70)';
+                    break;
+                case 'Acero':
+                    tipo.style.backgroundColor = 'rgb(197, 196, 192)';
+                    break; 
+                case 'Hielo':
+                    tipo.style.backgroundColor = 'rgb(74, 185, 185)';
+                    break; 
+                case 'Fantasma':
+                    tipo.style.backgroundColor = 'rgb(138, 171, 212, 0.598)';
+                    break;
+                case 'Dragón':
+                    tipo.style.backgroundColor = 'rgb(12, 2, 112)';
+                    break; 
+                default:
+                    tipo.style.backgroundColor = 'grey'; 
+                    break;
+            }
+            tipo.textContent = pokemon['tipos'][i];
+            pokedexInferior.appendChild(tipo);
+        }
+        card.appendChild(pokedexInferior);
 
-    const input1 = document.createElement('input');
-    input1.type = 'text';
-    input1.id = 'nombre';
-    input1.name = 'nombre';
-    input1.placeholder = 'Introduce el nombre';
-    input1.required = true;
-    Div1.appendChild(input1);
-    form.appendChild(Div1);
+        const basura = document.createElement('div');
+        basura.classList.add('basura-container');
+        const imgPapelera = document.createElement('img');
+        imgPapelera.src = `./img/papelera.png`;  
+        imgPapelera.alt = 'papelera';
+        imgPapelera.classList.add('basura-img');
+        basura.appendChild(imgPapelera);
+        card.appendChild(basura);
 
-    // Campo Tipo 1
-    const tipoDiv1 = document.createElement('div');
-    tipoDiv1.classList.add('form-info');
-
-    const tipoLabel1 = document.createElement('label');
-    tipoLabel1.setAttribute('for','tipo');
-    tipoLabel1.textContent = 'Tipo 1:';
-    tipoDiv1.appendChild(tipoLabel1);
-
-    const tipoSelect1 = document.createElement('select');
-    tipoSelect1.id = 'tipo';
-    tipoSelect1.name = 'tipo';
-    tipoSelect1.required = true;
-
-    const tipos = [
-        'Normal', 'Fuego', 'Agua', 'Planta', 'Eléctrico', 'Hielo', 
-        'Lucha', 'Veneno', 'Tierra', 'Volador', 'Psíquico', 'Bicho', 
-        'Roca', 'Fantasma', 'Dragón'
-    ];
-
-    tipos.forEach(tipo => {
-        const option = document.createElement('option');
-        option.value = tipo;
-        option.textContent = tipo;
-        tipoSelect1.appendChild(option);
-    });
-
-    tipoDiv1.appendChild(tipoSelect1);
-    form.appendChild(tipoDiv1);
-
-    // Campo Tipo 2
-    const tipoDiv2 = document.createElement('div');
-    tipoDiv2.classList.add('form-info');
-
-    const tipoLabel2 = document.createElement('label');
-    tipoLabel2.setAttribute('for','tipo2');
-    tipoLabel2.textContent = 'Tipo 2:';
-    tipoDiv2.appendChild(tipoLabel2);
-
-    const tipoSelect2 = document.createElement('select');
-    tipoSelect2.id = 'tipo2';
-    tipoSelect2.name = 'tipo2';
-
-    const opcionNone = document.createElement('option');
-    opcionNone.value = 'Ninguno';
-    opcionNone.textContent = 'Ninguno';
-    tipoSelect2.appendChild(opcionNone);
-
-    tipos.forEach(tipo => {
-        const option = document.createElement('option');
-        option.value = tipo;
-        option.textContent = tipo;
-        tipoSelect2.appendChild(option);
-    });
-
-    tipoDiv2.appendChild(tipoSelect2);
-    form.appendChild(tipoDiv2);
-
-    // Campo Imagen
-    const imagenDiv = document.createElement('div');
-    imagenDiv.classList.add('form-info');
-
-    const imagenLabel = document.createElement('label');
-    imagenLabel.setAttribute('for', 'imagen');
-    imagenLabel.textContent = 'Imagen:';
-    imagenDiv.appendChild(imagenLabel);
-
-    const imageInput = document.createElement('input');
-    imageInput.type = 'file';
-    imageInput.id = 'imagen';
-    imageInput.name = 'imagen';
-    imageInput.accept = 'image/*';
-    imagenDiv.appendChild(imageInput);
-    form.appendChild(imagenDiv);
-
-    // Botón de enviar
-    const botonEnviar = document.createElement('button');
-    botonEnviar.type = 'submit';
-    botonEnviar.textContent = 'Agregar';
-    form.appendChild(botonEnviar);
-
-    container.appendChild(formContainer);
-
-    //Manejar el envio del formulario con Location
-    botonEnviar.addEventListener('click', function(){
-        const nombre = document.getElementById('nombre').value;
-        const tipo = document.getElementById('tipo').value;
-        const tipo2 = document.getElementById('tipo2').value;
-
-        //obtener la lista acual de pokemon en la localStorage
-        const pokemon = JSON.parse(localStorage.getItem('pokemon'));
-
-        //calcular el siguiente id disponible
-        const ultimoid = pokemon.length > 0 ? Math.max(...pokemon.map(p =>p.id)): 0;
-        const nuevoId = ultimoid + 1;
-
-        //crear un objeto POkemon
-        const nuevoPokemon = {
-            id: nuevoId,
-            nombre : nombre,
-            //para los tipos en caso de que el segundo tipo sea "ninguno"
-            //solo pueda envuirse con un tipo
-            tipos : tipo2 === 'Ninguno' ? [tipo] : [tipo, tipo2]
-        };
         
-        //agregar el nuevo pokemon a la lsita y  actualizar el localStorage
-        pokemon.push(nuevoPokemon);
-        localStorage.setItem('pokemon', JSON.stringify(pokemon));
-        
-        //redirigir al index.html
-        window.location.href = `./index.html`;
-    });
-});
+        container.appendChild(card);
+    }
+}
+
+crearIndex();
