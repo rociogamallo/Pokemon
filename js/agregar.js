@@ -1,3 +1,16 @@
+// Redirige a la página de inicio al hacer clic en el logo
+const logo = document.querySelector(".pokedex-logo");
+logo.addEventListener("click", () => {
+    window.location.href = `../index.html`;
+});
+
+// Redirige a la página de inicio al hacer clic en el div
+const botonFormulario = document.querySelector(".back-button");
+botonFormulario.addEventListener("click", () => {
+    window.location.href = `../index.html`;
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('main');
     console.log(container);
@@ -122,4 +135,34 @@ document.addEventListener('DOMContentLoaded', function() {
     form.appendChild(botonEnviar);
 
     container.appendChild(formContainer);
+
+    //Manejar el envio del formulario con Location
+    botonEnviar.addEventListener('click', function(){
+        const nombre = document.getElementById('nombre').value;
+        const tipo = document.getElementById('tipo').value;
+        const tipo2 = document.getElementById('tipo2').value;
+
+        //obtener la lista acual de pokemon en la localStorage
+        const pokemon = JSON.parse(localStorage.getItem('pokemon'));
+
+        //calcular el siguiente id disponible
+        const ultimoid = pokemon.length > 0 ? Math.max(...pokemon.map(p =>p.id)): 0;
+        const nuevoId = ultimoid + 1;
+
+        //crear un objeto POkemon
+        const nuevoPokemon = {
+            id: nuevoId,
+            nombre : nombre,
+            //para los tipos en caso de que el segundo tipo sea "ninguno"
+            //solo pueda envuirse con un tipo
+            tipos : tipo2 === 'Ninguno' ? [tipo] : [tipo, tipo2]
+        };
+        
+        //agregar el nuevo pokemon a la lsita y  actualizar el localStorage
+        pokemon.push(nuevoPokemon);
+        localStorage.setItem('pokemon', JSON.stringify(pokemon));
+        
+        //redirigir al index.html
+        window.location.href = `./index.html`;
+    });
 });
