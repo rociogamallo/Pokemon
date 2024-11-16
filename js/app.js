@@ -78,11 +78,34 @@ botonFormulario.addEventListener("click", () => {
     alert("Redireccionando al formulario, saldrás de ésta página.");
 });
 
-//Botón para borrar el pokémon.
-const botonBorrar = document.querySelector("");
+// Selección de todos los contenedores para borrar el pokémon.(botón de borrar)
+document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("basura-img")) {
+        const pokemonId = event.target.id; // Asigno ID del Pokémon como atributo al botón
+        
+        // Pido una confirmación antes de borrar
+        const confirmar = confirm("¿Estás seguro de que deseas eliminar este Pokémon?");
+        if (confirmar) {
+            borrarPokemon(pokemonId); 
+        }
+    }
+});
 
+// Función para borrar el Pokémon del localStorage
+function borrarPokemon(id) {
 
+    const pokemones = JSON.parse(localStorage.getItem("pokemones")) || [];
 
+    // pokémon que no coincidan con el ID
+    const nuevosPokemones = pokemones.filter(pokemon => pokemon.id !== id);
+    
+    // Guarda los datos actualizados
+    localStorage.setItem("pokemones", JSON.stringify(nuevosPokemones));
+
+    // recargo la lista
+    alert("El Pokémon ha sido eliminado.");
+    location.reload(); 
+}
 
 /**
  * Función para crear el índice y el contenedor de Pokémon
