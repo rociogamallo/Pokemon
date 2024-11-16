@@ -17,6 +17,13 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             margin: auto;
         }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+        }
 
         /* Contenedor del botón de formulario */
         .formulario-container {
@@ -38,7 +45,7 @@
             border-radius: 5px; 
             transition: background-color 0.3s, transform 0.2s; 
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-            margin-top: 0; /* Sin margen adicional arriba */
+            margin-top: 0; 
         }
 
         .button-style:hover {
@@ -64,7 +71,7 @@
             justify-content: center;
             padding: 20px;
             max-width: 1000px;
-            margin: 0 auto 20px auto; /* Ajuste de márgenes */
+            margin: 0 auto 20px auto; 
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -93,19 +100,18 @@
             flex-direction: column; 
             justify-content: space-between; 
         }
-        .backcard p {
-            font-size: 16px;
-            color: #333;
-            margin: 10px 0;
-            font-weight: bold;
+        .backcard { 
+            transform: rotateY(180deg); 
+        } 
+        .backcard p { 
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px; 
+            margin: 5px 0;
+            font-weight: bold; 
         }
 
         .card {
             transform: rotateY(0deg);
-        }
-
-        .backcard {
-            transform: rotateY(180deg);
         }
 
         .card-container:hover .card {
@@ -144,7 +150,7 @@
             font-size: 16px;
             width: 100%; 
             box-sizing: border-box;
-            border-radius: 0 0 10px 10px; /* Bordes redondeados para la parte inferior */
+            border-radius: 0 0 10px 10px; 
         }
 
         .tipo {
@@ -156,23 +162,10 @@
         }
 
         .card-img {
-                    width: 100%; 
-                    height: auto; 
-                    max-height: 80px; 
-                    object-fit: contain; 
-                }
-
-        header {
-            background-color: #656565;
-            border-radius: 0 0 10px 10px;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 10px 20px;
+            width: 100%; 
+            height: auto; 
+            max-height: 80px; 
+            object-fit: contain; 
         }
 
         .logo-container {
@@ -181,7 +174,7 @@
         }
 
         .search-bar {
-            margin-left: auto; /* Asegura que el buscador esté a la derecha */
+            margin-left: auto;
             padding: 8px 12px;
             border-radius: 20px;
             border: none;
@@ -217,6 +210,7 @@
             transform: scale(1.05); 
         }
 
+        /* Estilo para la papelera de borrado */
         .basura-container {
             display: flex;
             justify-content: center;
@@ -229,14 +223,28 @@
         }
 
         .basura-img {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             cursor: pointer;
             transition: transform 0.2s;
         }
 
         .basura-img:hover {
             transform: scale(1.2);
+        }
+
+        /* Estilo para los contenedores de información de la backCard*/ 
+        .info-container { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            margin-top: 5px; 
+            padding: 5px; 
+            background-color: #ffffff80; 
+            border-radius: 5px; 
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
         }
 
     </style>
