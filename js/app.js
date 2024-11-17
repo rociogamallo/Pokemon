@@ -2,37 +2,41 @@
  * Función para guardar un Pokémon en localStorage
  */
 function guardarPokemonEnLocalStorage() {
-    // Guardar el objeto inicial de Pokémon en localStorage si no está guardado ya
+    // Verifica si no hay un objeto Pokémon guardado 
     if (!localStorage.getItem('pokemon')) {
-        localStorage.setItem('pokemon', JSON.stringify(pokemon));  // Asegúrate de tener pokemon definido antes
+        // Si no existe, guarda el objeto
+        localStorage.setItem('pokemon', JSON.stringify(pokemon));  
     }
 }
 
-// Llamar a la función para guardar los Pokémon
+// Llamar a la función para guardar los Pokémon al cargar
 guardarPokemonEnLocalStorage();
 
 /**
- * Función para mostrar los Pokémon en HTML 
- * Lee los datos del localStorage y genera un HTML
+ * Función para mostrar los Pokémon en HTML
+ * Lee los datos del localStorage y genera el HTML
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar si los Pokémon ya están en el localStorage antes de mostrarlos
+    // Verifica si la página tiene un contenedor de Pokémon
     if (!document.querySelector('.container')) {
+        // Si no existe, crea el contenedor
         crearIndex();
     }
+    // Muestra los Pokémon almacenados
     mostrarPokemon();
 
-    // Agregar eventos de eliminación a los elementos con la clase .basura-img
+    // Añadir evento de eliminación a la clase .basura-img
     document.querySelectorAll('.basura-img').forEach(img => {
         img.addEventListener('click', eliminarPokemon);
     });
 });
 
+// Función para mostrar los Pokémon 
 function mostrarPokemon() {
-    // Recupera la lista guardada en localStorage
+    // Recupera la lista de Pokémon almacenada 
     const pokemon = JSON.parse(localStorage.getItem('pokemon'));
 
-    // Verifica si pokemon existe antes de proceder
+    // Si hay Pokémon almacenados crea las cards para cada uno
     if (pokemon) {
         for (let i = 0; i < pokemon.length; i++) {
             crearPokemonCards(pokemon[i]);
@@ -40,23 +44,24 @@ function mostrarPokemon() {
     }
 }
 
+// Función para eliminar un Pokémon
 function eliminarPokemon(event) {
-    const id = parseInt(event.target.id); // Obtén el ID del Pokémon a eliminar
+    const id = parseInt(event.target.id); // Obtiene el ID del Pokémon a eliminar
 
-    // Recupera la lista de Pokémon del localStorage
+    // Recupera la lista de Pokémon
     let pokemonList = JSON.parse(localStorage.getItem('pokemon')) || [];
 
-    // Filtra la lista para excluir el Pokémon con el ID seleccionado
+    // Filtra la lista de Pokémon
     pokemonList = pokemonList.filter(pokemon => pokemon.id !== id);
 
-    // Guarda la lista actualizada en localStorage
+    // Actualiza la lista de Pokémon
     localStorage.setItem('pokemon', JSON.stringify(pokemonList));
 
     // Recarga la página para actualizar la vista
     window.location.reload();
 }
 
-// Función para filtrar Pokémon por nombre
+// Función para filtrar los Pokémon por nombre
 function buscarPokemon() { 
     const inputBuscador = document.getElementById('buscador'); 
     inputBuscador.addEventListener('keyup', () => { 
@@ -65,67 +70,69 @@ function buscarPokemon() {
         tarjetasPokemon.forEach(tarjeta => { 
             const nombrePokemon = tarjeta.querySelector('.pokemon-nombre').textContent.toLowerCase(); 
             if (nombrePokemon.includes(termino)) { 
-                tarjeta.style.order = 0; // Agrupa los resultados encontrados al principio 
-                tarjeta.style.display = 'flex'; } 
-            else { tarjeta.style.order = 1; // Mueve los resultados no encontrados al final 
-                tarjeta.style.display = 'none'; // Oculta las tarjetas que no coinciden 
-                } 
-            });
+                tarjeta.style.order = 0; // Mueve las cards encontradas al principio 
+                tarjeta.style.display = 'flex'; 
+            } else { 
+                tarjeta.style.order = 1; // Mueve las cards no encontradas al final 
+                tarjeta.style.display = 'none'; // Oculta las cards que no coinciden 
+            } 
         });
+    });
 }
 
-// Llamar a la función de búsqueda al cargar la página
+// Llama a la función de búsqueda al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     buscarPokemon();
 });
 
 /**
- * Añadir eventos: Redireccion de paginas
- * de index a formulario 
- * de logo a index
+ * Redirección de páginas
+ * Redirige de index a formulario y de logo a index
  */
-// Redirige a la página de inicio al hacer clic en el logo
+// Redirige a index al hacer clic en el logo
 const logo = document.querySelector(".logo");
 logo.addEventListener("click", () => {
-    window.location.href = "index.html";
+    window.location.replace(`index.html`);
 });
 
-//Botón para ir al formulario
+// Botón para ir al formulario 
 const botonFormulario = document.querySelector(".button-style");
-
 botonFormulario.addEventListener("click", () => {
     window.location.href = "./pages/agregar.html";
 });
 
 /**
- * Función para crear el índice y el contenedor de Pokémon
+ * Función para crear el index y el div
  */
 function crearIndex() {
-    document.body.classList.add('container-body');
+    document.body.classList.add('container-body'); // Añade clase al body
     const main = document.querySelector('main');
 
+    // Crear el div donde iran las cards
     const container = document.createElement('div');
     container.classList.add('container');
     main.appendChild(container);
 }
 
 /**
- * Función para crear las tarjetas de Pokémon
+ * Función para crear las cards de los Pokémon
  */
 function crearPokemonCards(pokemon) {
     const container = document.querySelector('.container');
     
-    // Verifica si el contenedor ya tiene un Pokémon con el mismo ID, para evitar duplicados
+    // Verifica si ya existe una card con el mismo id para no repetirse
     if (!container.querySelector(`#pokemon-${pokemon.id}`)) {
         
+        // Crea un div 
         const cardContainer = document.createElement('div');
         cardContainer.classList.add('card-container');
         cardContainer.id = `pokemon-${pokemon.id}`;
 
+        // Crea la Card
         const card = document.createElement('div');
         card.classList.add('card');
 
-        // Crea el div de NOMBRE e ID
+        // Div para el ID y nombre 
         const pokedexArriba = document.createElement('div');
         pokedexArriba.classList.add('pokedex-superior');
         const pokedexId = document.createElement('span');
@@ -138,22 +145,22 @@ function crearPokemonCards(pokemon) {
         pokedexArriba.appendChild(pokemonNombre);
         card.appendChild(pokedexArriba);
 
-        // Crea la imagen
+        // Imagen del Pokémon
         const img = document.createElement('img');
-        img.src = `./img/${pokemon.id}.png`;  // Ajusta la ruta si es necesario
+        img.src = `./img/${pokemon.id}.png`;  // ruta de la imagen dinamica
         img.alt = pokemon.nombre;
         img.classList.add('card-img');
         card.appendChild(img);
 
-        // Crea el div de los TIPOS
+        // Div tipos del Pokémon
         const pokedexInferior = document.createElement('div');
         pokedexInferior.classList.add('pokedex-tipo');
 
-        // Bucle para crear los tipos del Pokémon
+        // Color de los tipos de Pokemons
         for (let i = 0; i < pokemon['tipos'].length; i++) {
             const tipo = document.createElement('div');
             tipo.classList.add('tipo');
-            switch (pokemon['tipos'][i]){
+            switch (pokemon['tipos'][i]) {
                 case 'Planta':
                     tipo.style.backgroundColor = 'rgb(8, 181, 8)';
                     break;
@@ -214,26 +221,21 @@ function crearPokemonCards(pokemon) {
         }
         card.appendChild(pokedexInferior);
 
-
-        //Comienzo de la otra card con la información
+        // Crea el backCard
         const backCard = document.createElement('div');
         backCard.classList.add('backcard');
 
-        // Div con la información
+        // Div para mostrar peso, altura, habilidad y hábitat
         const info = document.createElement('div');
-        info.classList.add ('info-container');
-
-        // Crear y agregar el elemento para el peso
+        info.classList.add('info-container');
         const peso = document.createElement('p');
         peso.textContent = pokemon.peso ? `-Peso: ${pokemon.peso}kg` : '-Peso: No disponible';
         info.appendChild(peso);
 
-        // Crear y agregar el elemento para la altura
         const altura = document.createElement('p');
         altura.textContent = pokemon.altura ? `-Altura: ${pokemon.altura}m` : '-Altura: No disponible';
         info.appendChild(altura);
 
-        // Crear y agregar el elemento para la amistad base
         const habilidades = document.createElement('p');
         if (pokemon.habilidades && pokemon.habilidades.length > 0) {
             habilidades.textContent = `-Habilidad: ${pokemon.habilidades[0].nombre}`;
@@ -242,15 +244,13 @@ function crearPokemonCards(pokemon) {
         }
         info.appendChild(habilidades);
 
-        // Crear y agregar el elemento para el hábitat
         const habitat = document.createElement('p');
         habitat.textContent = pokemon.habitat ? `-Hábitat: ${pokemon.habitat}` : '-Hábitat: No disponible';
         info.appendChild(habitat);
 
         backCard.appendChild(info);
 
-
-        //Papelera para borrado
+        // Crear el la papelera para eliminar 
         const basura = document.createElement('div');
         basura.classList.add('basura-container');
         const imgPapelera = document.createElement('img');
@@ -267,4 +267,13 @@ function crearPokemonCards(pokemon) {
     }
 }
 
+// Función para escribir el tamaño de la pantalla
+document.addEventListener('DOMContentLoaded', function() {
+    const tamañoPantalla = window.screen.width;
+    const alturaPantalla = window.screen.height;
+    const tamaño = document.getElementById('tamaño_pantalla');
+    tamaño.textContent = `Tamaño de la pantalla: ${tamañoPantalla}x${alturaPantalla}`;
+});
+
+// Crear el index
 crearIndex();
