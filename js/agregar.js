@@ -1,17 +1,36 @@
-// Redirige a la página de inicio al hacer clic en el logo
+// Redirige a la página de inicio 
 const logo = document.querySelector(".pokedex-logo");
 logo.addEventListener("click", () => {
     window.location.href = `../index.html`;
 });
 
-// Redirige a la página de inicio al hacer clic en el div
+// Redirige a la página de inicio 
 const botonFormulario = document.querySelector(".back-button");
 botonFormulario.addEventListener("click", () => {
-    window.location.href = `../index.html`;
+    window.location.href = `../index.html`; 
 });
 
-
+// Espera a que el DOM se cargue antes de ejecutar
 document.addEventListener('DOMContentLoaded', function() {
+    // Verifica si estamos en la página agregar.html
+    if (window.location.pathname.includes('agregar.html')) {
+        // Obtiene el contador de visitas almacenado 
+        let visitas = parseInt(localStorage.getItem('contadorVisitas')) || 0;
+
+        // Incrementa el contador de visitas
+        visitas++;
+
+        // Almacena el nuevo contador de visitas 
+        localStorage.setItem('contadorVisitas', visitas);
+
+        // Muestra el número de accesos al formulario 
+        const contadorDiv = document.getElementById('contador-agregar');
+        contadorDiv.textContent = `Número de accesos al formulario: ${visitas}`;
+
+        // Agrega un nuevo estado al historial 
+        history.pushState({ visitas: visitas }, '', window.location.href);
+    }
+
     const container = document.querySelector('main');
     console.log(container);
 
