@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
         crearIndex();
     }
     mostrarPokemon();
+
+    // Agregar eventos de eliminación a los elementos con la clase .basura-img
+    document.querySelectorAll('.basura-img').forEach(img => {
+        img.addEventListener('click', eliminarPokemon);
+    });
 });
 
 function mostrarPokemon() {
@@ -33,6 +38,22 @@ function mostrarPokemon() {
             crearPokemonCards(pokemon[i]);
         }
     }
+}
+
+function eliminarPokemon(event) {
+    const id = parseInt(event.target.id); // Obtén el ID del Pokémon a eliminar
+
+    // Recupera la lista de Pokémon del localStorage
+    let pokemonList = JSON.parse(localStorage.getItem('pokemon')) || [];
+
+    // Filtra la lista para excluir el Pokémon con el ID seleccionado
+    pokemonList = pokemonList.filter(pokemon => pokemon.id !== id);
+
+    // Guarda la lista actualizada en localStorage
+    localStorage.setItem('pokemon', JSON.stringify(pokemonList));
+
+    // Recarga la página para actualizar la vista
+    window.location.reload();
 }
 
 // Función para filtrar Pokémon por nombre
@@ -68,7 +89,6 @@ const logo = document.querySelector(".logo");
 logo.addEventListener("click", () => {
     window.location.href = "index.html";
 });
-
 
 //Botón para ir al formulario
 const botonFormulario = document.querySelector(".button-style");
