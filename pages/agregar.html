@@ -1,126 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Práctica 03. DOM</title>
     <style>
+        /* Header */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 96%;
-            padding: 20px;
-            background-color: #656565;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            margin: auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            width: 96%; 
+            padding: 20px; 
+            background-color: #656565; 
+            border-radius: 0 0 10px 10px; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+            margin: auto; 
         }
 
+        /* Div main */
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 10px auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: center; 
+            padding: 20px; 
+            max-width: 1000px; 
+            margin: 10px auto; 
+            background-color: white; 
+            border-radius: 10px; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
         }
+
+        /* Div principal */
         .container-body {
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 0px;
-            max-width: 1000px;
-            margin: 25px auto;
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: center; 
+            padding: 0px; 
+            max-width: 1000px; 
+            margin: 25px auto; 
             background-color: #f0f0f0;
         }
 
+        /* Título */
         h1 {
-            text-align: center;
-            margin-bottom: 50px;
+            text-align: center; 
+            margin-bottom: 50px; 
         }
         
+        /* Logo */
         .pokedex-logo {
-            display: flex;
-            align-items: center;
+            display: flex; 
+            align-items: center; 
         }
 
+        /* "Volver al Inicio" */
         .back-button {
             background-color: #393939; 
             color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
+            padding: 10px 20px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-align: center; 
             text-decoration: none;
         }
 
+        /* Formulario */
         .form-container {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            background-color: #ffffff;
+            width: 100%; 
+            max-width: 600px; 
+            padding: 20px; 
+            background-color: #ffffff; 
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
         }
 
+        /* Elementos dentro del formulario */
         .form-info {
-            display: flex;
-            align-items: center;
+            display: flex; 
+            align-items: center; 
             margin-bottom: 15px;
         }
 
         .form-info label {
-            font-weight: bold;
-            text-align: right;
-            margin-right: 10px;
+            font-weight: bold; 
+            text-align: right; 
+            margin-right: 10px; 
         }
 
+        /* Campos del formulario */
         .form-info input[type="text"], .form-info select, .form-info input[type="file"] {
             flex: 2;
-            padding: 8px;
+            padding: 8px; 
             border: 1px solid #ccc;
             border-radius: 4px;
         }
 
+        /* Botón */
         button {
-            display: block;
-            width: 100%;
-            background-color: #656565;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            display: block; 
+            width: 100%; 
+            background-color: #656565; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            margin-top: 10px; 
         }
 
+        /* El botón al pasar el ratón sobre él */
         button:hover {
-            background-color: #393939;
+            background-color: #393939; 
         }
+
+        /* Centrar elementos */
         .centrar {
-            display: flex;                /* Activamos Flexbox */
-            justify-content: center;      /* Centrado horizontal */
-            align-items: center;          /* Centrado vertical */
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
         
     </style>
 </head>
 <body class="container-body">
+    <!-- Div para mostrar el contador de de cuantas veces entramos a agregar -->
+    <div id="contador-agregar">
+    </div>
+    <!-- Encabezado de la página con el logo y el botón de regreso -->
     <header> 
         <div class="pokedex-logo">
-            <img src="../img/logo.png" alt="Logo de la Pokédex" style="width: 130px; height: auto;">
+            <img src="../img/logo.png" alt="Logo de la Pokédex" style="width: 130px; height: auto;"> <!-- Logo de la Pokédex -->
         </div>
         
-        <a href="#" class="back-button">Volver al Inicio</a>
+        <a href="#" class="back-button">Volver al Inicio</a> <!-- Botón para volver al inicio -->
     </header>
-    
     <main class="container">
     </main>
     <script src="../js/pokemon.js"></script>
