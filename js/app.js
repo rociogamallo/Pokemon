@@ -267,6 +267,35 @@ function crearPokemonCards(pokemon) {
     }
 }
 
+// Función para agregar el evento de rotación a las cartas
+function agregarEventoRotacion() {
+    const cards = document.querySelectorAll('.card-container');
+    
+    cards.forEach(cardContainer => {
+        const card = cardContainer.querySelector('.card');
+        const backCard = cardContainer.querySelector('.backcard');
+        
+        // Evento al pasar el mouse por encima
+        cardContainer.addEventListener('mouseover', () => {
+            card.style.transform = 'rotateY(180deg)';
+            backCard.style.transform = 'rotateY(0deg)';
+        });
+
+        // Evento al salir del mouse
+        cardContainer.addEventListener('mouseout', () => {
+            card.style.transform = 'rotateY(0deg)';
+            backCard.style.transform = 'rotateY(180deg)';
+        });
+    });
+}
+
+// Llama a la función después de crear las cartas
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarPokemon();
+    agregarEventoRotacion();
+});
+
+
 // Función para escribir el tamaño de la pantalla
 document.addEventListener('DOMContentLoaded', function() {
     const tamañoPantalla = window.screen.width;
